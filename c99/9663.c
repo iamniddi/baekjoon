@@ -14,7 +14,7 @@ int checkAttack(int x, int y) {
       if (chess[i][x] == 1) {
          return 1;
       }
-   }//4,3
+   }
    if (x > y) {
       smallNum = y;
       saveX = x - smallNum;
@@ -63,27 +63,10 @@ int checkAttack(int x, int y) {
    return 0;
 }
 
-void printArr(){
-	int i,q;
-	for (i = 0; i < N; i++) {
-		for (q = 0; q < N; q++) {
-			if(chess[i][q]==0){
-				printf("%d ", 0);
-			}
-			else {
-				printf("%d ", 1);
-			}
-		}
-		printf("\n");
-	}
-	printf("\n");
-}
-
 void backTracking(int count, int cut1, int cut2) {
 	int i, q;
 	if(count==N){
 		result++;
-		//printArr();
 		return;
 	}
 	for (i = cut1; i < N; i++) {
