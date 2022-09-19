@@ -1,82 +1,36 @@
 #include <stdio.h>
 
-int queue[1000]={0}, front=0,rear=0;
-
-void push(int x){
-	queue[rear]=x;
-	rear++;
-}
-
-int pop(){
-	if(front!=rear){
-		int tmp = queue[front];
-		queue[front]=0;
-		front++;
-		return tmp;
-	}
-	else {
-		return -1;
-	}
-}
-
-int size(){
-	return rear-front;
-}
-
-int empty(){
-	if(front==rear){
-		return 1;
-	}
-	else{
-		return 0;
-	}
-}
-
-int front_(){
-	if(empty()==0){
-		return queue[front];
-	}
-	else{
-		return -1;
-	}
-}
-
-int back_(){
-	if(empty()==0){
-		return queue[rear-1];
-	}
-	else{
-		return -1;
-	}
-}
+//a=97 .... y=121 z=122 26°³ 
 
 int main(void){
-	int T, a,b,num1, count=0;
-	char arr[20]={0}, numArr[8]={0};
-	scanf("%d", &T);
-	for (a=0; a< T; a++){
-		scanf("%s", arr);
-		if(arr[0]=='p'&&arr[1]=='u'){
-			scanf("%d", &num1);
-			push(num1);
+	char stringArr[100];
+	int alphabet[26]={0,};
+	int cnt=0;
+	int N,i,j, check, result=0;
+	scanf("%d", &N);
+	for(i=0;i<N;i++){
+		scanf("%s", stringArr);
+		
+		for(j=0;j<26;j++){
+			alphabet[j]=0;
 		}
 		
-		else if(arr[0]=='p'&&arr[1]=='o'){
-			printf("%d\n", pop());
+		while(stringArr[cnt]!=NULL){
+			
+			if(stringArr[cnt]==stringArr[cnt+1]) check = 1;
+			else check=0;
+			
+			if(alphabet[(int)stringArr[cnt]-97]==0 && check==0){
+				alphabet[(int)stringArr[cnt]-97]=1;
+			}
+			else if(alphabet[(int)stringArr[cnt]-97]==1){
+				result++;
+				break;
+			}
+			cnt++;
 		}
-		else if(arr[0]=='f'){
-			printf("%d\n", front_());
-		}
-		else if(arr[0]=='b'){
-			printf("%d\n", back_());
-		}
-		else if(arr[0]=='e'){
-			printf("%d\n", empty());
-		}
-		else if(arr[0]=='s'){
-			printf("%d\n", size());
-		}
+		cnt=0;
 	}
-	
+	printf("%d", N-result);
 	return 0;
 }
