@@ -1,91 +1,39 @@
 #include <stdio.h>
 
-int chess[15][15] = {0};
-int N, result=0,c=0;
+int chess[15] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+int N, result=0;
 
-int checkAttack(int x, int y) {
-   int i, q, smallNum, bigNum,saveX,saveY;
-   for (i = 0; i < N; i++) {
-      if (chess[y][i]==1) {
-         return 1;
-      }
-   }
-   for (i = 0; i < N; i++) {
-      if (chess[i][x] == 1) {
-         return 1;
-      }
-   }
-   if (x > y) {
-      smallNum = y;
-      saveX = x - smallNum;
-      saveY = y - smallNum;
-      i = 0;
-      while (saveX + i < N && saveY + i < N) {
-         
-         if (chess[saveY + i][saveX + i] == 1) {
-            return 1;
-         }
-         i++;
-      }
-   }
-   else {
-      smallNum = x;
-      saveX = x - smallNum;
-      saveY = y - smallNum;
-      i = 0;
-      while (saveX + i < N && saveY + i < N) {
-         
-         if (chess[saveY + i][saveX + i] == 1) {
-            return 1;
-         }
-         i++;
-      }
-   }
-   if (y > N-1 - x) {
-      smallNum = N-1 - x;
-      saveX = x + smallNum;
-      saveY = y - smallNum;
-      
-   }
-   else {
-      smallNum = y;
-      saveX = x + smallNum;
-      saveY = y - smallNum;
-   }
-   i = 0;
-   while (saveX - i < N && saveY + i < N) {
-      
-      if (chess[saveY + i][saveX - i] == 1) {
-         return 1;
-      }
-      i++;
-   }
-   return 0;
+int crossCheck(int x,int y){
+	int i;
+	for(i=0;i<N;i++){
+		if(chess[i]==x) return 1;
+	}
+	for(i=0;i<N;i++){
+		if(i!=y && chess[i]!=-1 && (chess[i]==x+(i-y)||chess[i]==x-(i-y))){
+			return 1;
+		}
+	}
+	return 0;
 }
 
-void backTracking(int count, int cut1, int cut2) {
+void backTracking(int count) {
 	int i, q;
 	if(count==N){
 		result++;
 		return;
 	}
-	for (i = cut1; i < N; i++) {
-		if(cut1>i || cut2>q) continue;
-		for (q = 0; q < N; q++) {
-			printf("%d %d\n", i,q);
-			if(chess[i][q]==0 && checkAttack(q,i)==0){
-				chess[i][q]=1;
-				printf("üũ,(%d)\n", count);
-				backTracking(count+1,i,q);
-				chess[i][q]=0;
-			}
+	for(i=0;i<N;i++){
+		if(crossCheck(i, count)==0){
+			chess[count]=i;
+			backTracking(count+1);
+			chess[count]=-1;
 		}
 	}
 }
 
 int main(void) {
 	scanf("%d", &N);
-	backTracking(0,0,0);
+	backTracking(0);
 	printf("%d", result);
 	
 	return 0;

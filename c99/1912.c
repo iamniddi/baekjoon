@@ -111,6 +111,6 @@ int main(void){
 		printf("(%d) ", arr[i]);
 	}
 	//printf("\n%d", max);
-	//dp();
+	dp();
 	return 0;
 }
