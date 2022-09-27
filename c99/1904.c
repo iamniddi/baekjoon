@@ -1,19 +1,20 @@
 #include <stdio.h>
+int arr[1000010]={0,};
 
-int factorial[1000000]={0,};
+int fibo(int N){
+	if(N<=1) return N;
+	if(arr[N]!=0){
+		return arr[N];
+	}
+	else {
+		arr[N]=(fibo(N-1)+fibo(N-2))% 15746;
+		return arr[N];
+	}
+}
 
 int main(void){
-	int N,i,j=0, sum=0;
-	factorial[0]=1;
+	int N;
 	scanf("%d", &N);
-	for(i=1;i<=N;i++){
-		factorial[i]=factorial[i-1]*i;
-		printf("%d " , factorial[i]);
-	}
-	for(i=N;i>=N/2;i--){
-		sum+=factorial[i]/factorial[i-j]/factorial[j];
-		j++;
-	}
-	printf("\n%d", sum);
+	printf("%d", fibo(N+1));
 	return 0;
 }
