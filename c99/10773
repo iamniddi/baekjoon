@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main(void){
+	int k,i,j,rear=0, sum=0;
+	int arr[100000];
+	scanf("%d", &k);
+	for(i=0;i<k;i++){
+		scanf("%d", &arr[rear]);
+		if(arr[rear]==0){
+			sum-=arr[rear];
+			rear--;
+		}
+		sum+=arr[rear];
+		rear++;
+	}
+	printf("%d", sum);
+}
