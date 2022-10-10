@@ -6,12 +6,14 @@ int main(void){
 	scanf("%d", &k);
 	for(i=0;i<k;i++){
 		scanf("%d", &arr[rear]);
-		if(arr[rear]==0){
-			sum-=arr[rear];
-			rear--;
+		if(arr[rear]!=0){
+			sum+=arr[rear];
+			rear++;
 		}
-		sum+=arr[rear];
-		rear++;
+		else{
+			rear--;
+			sum-=arr[rear];
+		}
 	}
 	printf("%d", sum);
 }
